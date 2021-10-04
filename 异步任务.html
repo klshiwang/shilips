@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>异步任务</title>
+    <script src="./js/jquery-3.6.0.js"></script>
+    <script>
+        $(function(){
+          /*   // 1. 发送请求
+            $.ajax({
+                url:"http://klshiwang.gicp.net/newsList",
+                type:"POST",
+                success:function(data){
+                    console.log(data)  //输入数据
+                }
+            })
+
+            console.log("这段文字会在数据的前面被输出"); */
+
+
+            const prms = new Promise(function(resolve,reject){
+                //写要执行的任务
+                // 发送请求
+                $.ajax({
+                    url:"http://klshiwang.gicp.net/newsList",
+                    type:"POST",
+                    success:function(data){
+                        resolve(data);   //改变为成功状态
+                    },
+                    error:function(err){
+                        reject("未响应");   //改变为失败状态
+                    }
+                    
+                })
+                // resolve();   //改变为成功状态
+                // reject();   //改变为失败状态
+            })
+
+            prms.then(function(value){
+                //处理value
+                console.log("拿到了promise的结果 ");
+                console.log(value);
+            })
+
+
+
+        })
+    </script>
+</head>
+<body>
+    
+
+
+
+
+</body>
+</html>

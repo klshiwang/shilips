@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>新闻详情</title>
+    <!-- 引入bootstrap相关的文件 -->
+    <link rel="stylesheet" href="./css/bootstrap.css">
+    <link rel="stylesheet" href="./css/detail.css">
+    <script src="./js/jquery-3.6.0.js"></script>
+    <script src="./js/bootstrap.js"></script>
+    <script src="./js/shilips.js"></script>
+    <script>
+      $(function(){
+        /*
+        // 1. 发送请求
+        $.ajax({
+          url:"http://klshiwang.gicp.net/newsList",
+          type:"POST",
+          success:function(data){
+            console.log(data)
+
+            let detailStr ="";
+
+            // 2. 获取地址栏中的参数(从新闻列表页带过来的参数,id指的是新闻的id)
+
+            // 封装转换地址参数
+            function getObjParam(paramStr){
+              let paramObj ={};
+              paramStr.slice(1)    //"id=1&type=3"
+              //返回数组  ["id=1","type=3"]
+              let paramArr = paramStr.slice(1).split("&")
+              for(let i =0;i<paramArr.length;i++){
+                paramArr[i].split("=")  //["id","1"]
+                console.log(paramArr);
+                let key = paramArr[i].split("=")[0]  //"id"
+                let value = paramArr[i].split("=")[1]  //"1"
+
+                console.log(key)
+                // {id:1,type=3}
+                //{key:1}
+                paramObj[key] = value;  //{id:1}     {id:"1",type:"3"}
+              }
+              return paramObj;
+            }
+
+           
+            let params =  getObjParam(location.search)  
+
+            
+
+
+            // 3. 从多条新闻中取出指定id的那一条新闻(应该显示在页面中的新闻数据)
+            // 从data 找 newsID为2的那一个对象, 使用遍历
+            //上一条新闻被访问过的
+            let currentNews ={}
+            let perNews ={}
+            let nextNews ={}
+
+            for(let i =0;i<data.length;i++){
+              if(data[i].newsID == parseInt(params.id)){
+                currentNews = data[i];  
+                perNews = data[i-1];  //有可能是空的
+                nextNews = data[i+1];   //有可能是空的
+                break;
+              }
+            }
+
+            console.log("----------------");
+            console.log("currentNews",currentNews);
+            console.log("perNews",perNews);
+            console.log("nextNews",nextNews);
+
+
+
+
+            console.log(currentNews);
+
+            //4.把这条新闻数据,以页面的形式显示到指定位置.
+            detailStr=`
+            <div class="d-title">
+              <h2>企业动态 / News Information</h2>
+            </div>
+            <div class="d-mid">
+              <h3>${currentNews.newsTitle}</h3>
+              <div class="info clearfix">
+                <p class="pull-left">编辑：<span>${currentNews.newsEditer}</span> 发布时间：<span>${currentNews.date}</span></p>
+                <span class="pull-right">0</span>
+              </div>
+              <div class="d-content text-center">
+                <img src="${currentNews.newsPics[0]}" alt="news1">
+                <div class="text-left">
+                  ${currentNews.newContent}
+                </div>
+              </div>
+            </div>
+            <div class="d-bottom">
+              <ul>
+                <li>上一篇: <a href="${perNews ? "./detail.html?id="+perNews.newsID : "#"}">${ perNews ? perNews.newsTitle : "没有上一篇了"}</a></li>
+                <li>下一篇: <a href="${nextNews ? "./detail.html?id="+nextNews.newsID : "#"}">${ nextNews ? nextNews.newsTitle : "没有下一篇了"}</a></li>
+              </ul>
+              <a href="./newslist.html"> <span class="glyphicon glyphicon-arrow-left"></span> 返回列表页</a>
+            </div>
+            `
+
+            $(".detail").append(detailStr);
+          }
+
+        })
+        */
+
+
+        // 封装转换地址参数
+        function getObjParam(paramStr){
+              let paramObj ={};
+              paramStr.slice(1)    //"id=1&type=3"
+              //返回数组  ["id=1","type=3"]
+              let paramArr = paramStr.slice(1).split("&")
+              for(let i =0;i<paramArr.length;i++){
+                paramArr[i].split("=")  //["id","1"]
+                console.log(paramArr);
+                let key = paramArr[i].split("=")[0]  //"id"
+                let value = paramArr[i].split("=")[1]  //"1"
+
+                console.log(key)
+                // {id:1,type=3}
+                //{key:1}
+                paramObj[key] = value;  //{id:1}     {id:"1",type:"3"}
+              }
+              return paramObj;
+            }
+
+
+        //封装一个函数, 用来发送ajax请求
+        //option:   {url:"http://klshiwang.gicp.net/newsList",type:"POST",data:{}}
+        function myAjax(option){
+          return new Promise((resolve,reject)=>{
+            //发请求
+            $.ajax({
+              url:option.url,
+              type:option.type || "GET" ,
+              data:option.data || {},
+              success:function(data){
+                resolve(data);  //设置promise为成功状态, 并带出data数据
+              }
+            })
+          })
+        }
+
+
+        // 调用myAjax()函数
+        let opt = {
+          url:"http://klshiwang.gicp.net/newsList",
+          type:"POST",
+        }
+        let myPromise =  myAjax(opt);
+
+        myPromise.then((value)=>{
+          console.log(value)
+          // 取id参数
+          let params = getObjParam(location.search);
+
+          //找三个新闻, 当前新闻  上一篇  下一篇
+          // 3. 从多条新闻中取出指定id的那一条新闻(应该显示在页面中的新闻数据)
+            // 从data 找 newsID为2的那一个对象, 使用遍历
+            //上一条新闻被访问过的
+            let currentNews ={}
+            let perNews ={}
+            let nextNews ={}
+
+            for(let i =0;i<value.length;i++){
+              if(value[i].newsID == parseInt(params.id)){
+                currentNews = value[i];  
+                perNews = value[i-1];  //有可能是空的
+                nextNews = value[i+1];   //有可能是空的
+                break;
+              }
+            }
+
+            console.log("----------------");
+            console.log("currentNews",currentNews);
+            console.log("perNews",perNews);
+            console.log("nextNews",nextNews);
+
+
+            //渲染数据到页面
+            //4.把这条新闻数据,以页面的形式显示到指定位置.
+            detailStr=`
+            <div class="d-title">
+              <h2>企业动态 / News Information</h2>
+            </div>
+            <div class="d-mid">
+              <h3>${currentNews.newsTitle}</h3>
+              <div class="info clearfix">
+                <p class="pull-left">编辑：<span>${currentNews.newsEditer}</span> 发布时间：<span>${currentNews.date}</span></p>
+                <span class="pull-right">0</span>
+              </div>
+              <div class="d-content text-center">
+                <img src="${currentNews.newsPics[0]}" alt="news1">
+                <div class="text-left">
+                  ${currentNews.newContent}
+                </div>
+              </div>
+            </div>
+            <div class="d-bottom">
+              <ul>
+                <li>上一篇: <a href="${perNews ? "./detail.html?id="+perNews.newsID : "#"}">${ perNews ? perNews.newsTitle : "没有上一篇了"}</a></li>
+                <li>下一篇: <a href="${nextNews ? "./detail.html?id="+nextNews.newsID : "#"}">${ nextNews ? nextNews.newsTitle : "没有下一篇了"}</a></li>
+              </ul>
+              <a href="./newslist.html"> <span class="glyphicon glyphicon-arrow-left"></span> 返回列表页</a>
+            </div>
+            `
+
+            $(".detail").append(detailStr);
+
+        })
+
+
+      })
+    </script>
+</head>
+<body>
+
+  
+  <!-- 返回顶部按钮 -->
+  <div class="back-top">
+    <span class="glyphicon glyphicon-arrow-up"></span>
+  </div>
+
+
+  <!-- top -->
+    <div class="container-fluid top navbar-fixed-top">
+      <div class="row">
+        <div class="container">
+          <div class="row">
+            <nav class="navbar navbar-default">
+              <div class="container-fluid">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header top-header">
+                  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                  </button>
+                  <!-- 下面是在pc端隐藏 -->
+                  <a class="navbar-brand hidden-md hidden-lg logo-m" href="./index.html"><img src="./img/Philips_brand_logo_all_BR.png" alt=""></a>
+                  <!-- 下面是在移动端隐藏的 -->
+                  <div class="navbar-brand logo hidden-xs hidden-sm">
+                      <p> <a href="./index.html"><img src="./img/Philips_brand_logo_all_BR.png" alt=""></a> </p>
+                      <p><a href="#">消费产品</a></p>
+                      <p><a href="#">产品</a></p>
+                  </div>
+                </div>
+            
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                  <ul class="nav navbar-nav">
+                    <li class="dropdown">
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">产品<span class="caret"></span></a>
+                      <ul class="dropdown-menu">
+                        <li><a href="#">视听产品</a></li>
+                        <li><a href="#">个人护理</a></li>
+                        <li><a href="#">母婴护理</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="#">厨房及家居</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="#">照明</a></li>
+                        <li><a href="#">健康</a></li>
+                        <li><a href="#">汽车</a></li>
+                        <li><a href="#">电脑产品、显示器和电话</a></li>
+                        <li><a href="#">附件</a></li>
+                      </ul>
+                    </li>
+                    <li class="active"><a href="#">在线商城<span class="sr-only">(current)</span></a></li>
+                    <li><a href="./newslist.html">塞利普新闻</a></li>
+                  </ul>
+
+                  <ul class="nav navbar-nav">
+                      <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">产品支持<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                          <li><a href="#">支持主页</a></li>
+                          <li><a href="#">查找产品</a></li>
+                          <li><a href="#">查找客服中心</a></li>
+                          <li role="separator" class="divider"></li>
+                          <li><a href="#">联系我们</a></li>
+                          <li role="separator" class="divider"></li>
+                          <li><a href="#">购买附件</a></li>
+                          
+                        </ul>
+                      </li>
+                      <li class="active"><a href="#">特惠专区<span class="sr-only">(current)</span></a></li>
+                      <li><a href="#">塞利普俱乐部</a></li>
+
+                      <li class="dropdown">
+                          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">关于塞利普<span class="caret"></span></a>
+                          <ul class="dropdown-menu">
+                            <li><a href="#">公司概况</a></li>
+                            <li><a href="#">设计</a></li>
+                            <li><a href="#">研发</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="#">可持续发展</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="./newslist.html">新闻中心</a></li>
+                            <li><a href="#">投资者关系</a></li>
+                            <li><a href="#">招贤纳士</a></li>
+                          </ul>
+                        </li>
+                    </ul>
+
+                 
+                 
+                </div><!-- /.navbar-collapse -->
+              </div><!-- /.container-fluid -->
+            </nav>
+          </div>
+            
+
+
+        </div>
+      </div>
+        
+    </div>
+<!-- detail -->
+<!-- banner -->
+<div class="container-fluid banner">
+  <div class="container">
+    <h2>新闻资讯</h2>
+    <h3>塞利普最新动态</h3>
+  </div>
+  
+
+  <!-- 联系我们 -->
+  <div class="sidebar">
+    <ul>
+      <li><a href="#"><img src="./img/qq.png" alt="qq"></a></li>
+      <li>
+        <a href="#">
+          <img src="./img/weixin.png" alt="weixin">
+        </a>
+        <img class="erweima" src="./img/erweima.jpg" alt="">
+      </li>
+      <li><a href="#"><img src="./img/weibo.png" alt="weibo"></a></li>
+      <li><a href="#"><img src="./img/phone.png" alt="phone"></a></li>
+    </ul>
+    <p>联系我们</p>
+  </div>
+</div>
+
+<!-- detail的新闻内容 -->
+<div class="detail container">
+  <!-- <div class="d-title">
+    <h2>企业动态 / News Information</h2>
+  </div>
+  <div class="d-mid">
+    <h3>塞利普官方网站上线了</h3>
+    <div class="info clearfix">
+      <p class="pull-left">编辑：<span>刘小编</span> 发布时间：<span>2017/05/20</span></p>
+      <span class="pull-right">0</span>
+    </div>
+    <div class="d-content text-center">
+      <img src="./img/LM-MyPhilips-Banner.jpg" alt="news1">
+      <div class="text-left">
+        2017年5月17日，塞利普官方网站上线了！
+      </div>
+    </div>
+  </div>
+  <div class="d-bottom">
+    <ul>
+      <li>上一篇: <a href="#">已是第一篇</a></li>
+      <li>下一篇: <a href="#">塞利普十周年庆典圆满成功！</a></li>
+    </ul>
+    <a href="./detail.html"> <span class="glyphicon glyphicon-arrow-left"></span> 返回列表页</a>
+  </div> -->
+</div>
+  
+   
+<!-- theme6 -->
+<div class="container-fluid theme6">
+  <div class="row">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-3">
+          <h2>消费类产品</h2>
+          <ul>
+            <li><a href="#">产品</a></li>
+            <li><a href="#">在线商城</a></li>
+            <li><a href="#">产品支持</a></li>
+            <li><a href="#">特惠专区</a></li>
+            <li><a href="#">活动快递</a></li>
+            <li><a href="#">塞利普俱乐部</a></li>
+          </ul>
+        </div>
+        <div class="col-md-3">
+          <h2>专业产品</h2>
+          <ul>
+            <li><a href="#">医疗科技</a></li>
+            <li><a href="#">照明</a></li>
+          </ul>
+        </div>
+        <div class="col-md-3">
+          <h2>关于塞利普</h2>
+          <ul>
+            <li><a href="#">公司概况</a></li>
+            <li><a href="#">设计</a></li>
+            <li><a href="#">研发</a></li>
+            <li><a href="#">可持续发展</a></li>
+            <li><a href="#">新闻中心</a></li>
+            <li><a href="#">投资者关系</a></li>
+            <li><a href="#">招贤纳士</a></li>
+            <li><a href="#">塞利普2017年报</a></li>
+          </ul>
+        </div>
+        <div class="col-md-3">
+          <h2>塞利普俱乐部</h2>
+          <ul>
+            <li><a href="#">登录</a></li>
+            <li><a href="#">创建账户</a></li>
+            <li><a href="#">注册产品</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- footer -->
+<div class="container-fluid footer">
+  <div class="row">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4 f-left hidden-xs hidden-sm">
+          <p>连接至塞利普</p>
+          <img src="./img/weibo.png" alt="">
+        </div>
+        <div class="col-md-4 f-mid  ">
+          <img src="./img/footlogo.png" alt="footlogo">
+        </div>
+
+        <div class="col-md-4 f-left-m hidden-md hidden-lg">
+          <p>连接至塞利普</p>
+          <img src="./img/weibo.png" alt="">
+        </div>
+
+        <div class="col-md-4 f-right ">
+          <div class="dropdown">
+            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+              选择国家/语言  中国-中文
+              <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+              <li><a href="#">中国</a></li>
+              <li><a href="#">消费类产品</a></li>
+              <li><a href="#">医疗保健</a></li>
+              <li><a href="#">专业照明</a></li>
+            </ul>
+          </div>
+        </div>
+
+
+      </div>
+
+      <ul class="list-inline text-center footer-nav">
+        <li><a href="#">投资者关系</a>|</li>
+        <li><a href="#">招贤纳士</a>|</li>
+        <li><a href="#">联系塞利普</a>|</li>
+        <li><a href="#">Shilips</a>|</li>
+        <li><a href="#">Cookie</a>|</li>
+        <li><a href="#">产品安全</a>|</li>
+        <li><a href="#">使用条款</a>|</li>
+        <li><a href="#">站点地图</a>|</li>
+        <li><a href="#">手机网站</a>|</li>
+        <li><a href="#">沪ICP备09062110号</a>|</li>
+        <li><a href="#">隐私权声明</a></li>
+      </ul>
+      <p class="text-center">©Koninklijke Shilips N.V.2004 - 2017。保留所有权利。</p>
+
+
+    </div>
+  </div>
+  
+</div>
+
+</body>
+</html>

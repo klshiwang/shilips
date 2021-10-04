@@ -1,0 +1,311 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+html{
+    /* height: 2000px; */
+}
+html,body{
+    overflow-x:hidden;
+}
+a{
+    text-decoration: none !important;
+}
+
+img{
+    width: 100%;
+}
+
+
+.top{
+    background-color:#F8F8F8 ;
+}
+.top-header{
+    height: 50px;
+}
+.top nav{
+    margin-bottom: 0;
+    border: none;
+}
+.logo{
+    width: 140px;
+    background-image: linear-gradient(90deg,#1D388E,#3175B8);
+    padding: 0;
+    height: auto;
+}
+.logo p{
+    height: 50px;
+    line-height: 50px;
+}
+.logo p a{
+    color: #fff;
+}
+.logo p:nth-child(1){
+    background-color: #fff;
+    height: 75px;
+    border-bottom-right-radius: 40px;
+    padding: 10px 0;
+    box-sizing: border-box;
+}
+.logo p:nth-child(2){
+    height: 0;
+    overflow: hidden;
+    transition: height 0.5s;
+}
+.logo:hover p:nth-child(2){
+    height: 50px;
+}
+.logo-m img{
+    width: 100px;
+}
+
+/* theme1-pc */
+.theme1-pc{
+    background: url(../img/ultrasound-l.jpg) no-repeat;
+    background-size: cover;
+    padding: 100px 0;
+    margin-top: 50px;
+}
+.theme1-pc h2{
+    font-size:42px;
+    font-weight: bold;
+}
+.theme1-pc p{
+    font-size: 18px;
+    width: 380px;
+}
+.theme1-pc a{
+    display: block;
+    width: 120px;
+    height: 36px;
+    background-color: #1B6D85;
+    text-align: center;
+    line-height: 36px;
+    color: #fff;
+    border-radius: 8px;
+}
+
+/* theme1-m */
+.theme1-m{
+    margin-top: 50px;
+}
+
+.theme1-m h2{
+    font-size:18px;
+    font-weight: bold;
+}
+.theme1-m p{
+    font-size: 16px;
+    width: 100%;
+    
+}
+.theme1-m a{
+    display: block;
+    width: 120px;
+    height: 36px;
+    background-color: #1B6D85;
+    text-align: center;
+    line-height: 36px;
+    color: #fff;
+    border-radius: 8px;
+}
+/* theme2-pc */
+.theme2-pc{
+    background: url(../img/li-l.jpg) no-repeat;
+    background-size: cover;
+    padding: 100px 0;
+}
+.theme2-pc h2{
+    font-size: 42px;
+    font-weight: bold;
+    color: #fff;
+}
+.theme2-pc dd{
+    font-size: 18px;
+    margin: 5px 0;
+    color: #fff;
+}
+.theme2-pc a{
+    display: block;
+    width: 120px;
+    height: 36px;
+    background-color: rgba(27,109,133, 0.6);
+    text-align: center;
+    line-height: 36px;
+    border-radius: 8px;
+    color: #fff;
+}
+
+/* theme2-m */
+.theme2-m{
+    margin-top: 10px;
+}
+.theme2-m h2{
+    font-size: 18px;
+    font-weight: bold;
+}
+.theme2-m dd{
+    font-size: 16px;
+    margin: 5px 0;
+}
+.theme2-m a{
+    display: block;
+    width: 120px;
+    height: 36px;
+    background-color: rgba(27,109,133, 1);
+    text-align: center;
+    line-height: 36px;
+    border-radius: 8px;
+    color: #fff;
+}
+
+/*  theme3-pc */
+.theme3-pc{
+    background: url(../img/philips-watch-left-l.jpg) no-repeat;
+    background-size: cover;
+    text-align: right;
+    padding: 100px 0;
+}
+.theme3-pc h2{
+    font-size: 42px;
+    color: #fff;
+    font-weight: bold;
+    text-shadow:2px 2px 2px #aaa;
+}
+.theme3-pc a{
+    display: inline-block;
+    width: 120px;
+    height: 36px;
+    background-color: rgba(27,109,133, 1);
+    text-align: center;
+    line-height: 36px;
+    border-radius: 8px;
+    color: #fff;
+}
+.theme3-pc .content{
+    padding-right:100px;
+}
+/*  theme3-m */
+.theme3-m{
+    margin-top:10px ;
+}
+.theme3-m h2{
+    font-size: 18px;
+    font-weight: bold;
+}
+.theme3-m a{
+    display: inline-block;
+    width: 120px;
+    height: 36px;
+    background-color: rgba(27,109,133, 1);
+    text-align: center;
+    line-height: 36px;
+    border-radius: 8px;
+    color: #fff;
+}
+
+/* theme4 */
+.theme4{
+    background-color: #EFEFEF;
+}
+.theme4 ul li{
+    list-style: none;
+    margin-top: 5px;
+}
+.theme4 ul li span{
+    color: #50AD0A;
+    padding-right: 5px;
+
+}
+.theme4 form a{
+    display: block;
+}
+.theme4 form input{
+    /* margin-right: 20px; */
+    margin: 5px 0;
+}
+.theme4 form .input-box{
+    min-width: 40%;
+}
+.theme4 form input[type=submit]{
+    display: block;
+}
+.theme4-right{
+    background: url(../img/LM-MyPhilips-Banner.jpg) no-repeat;
+    padding: 40px 0px 170px 10px;
+}
+
+/* theme5 */
+.theme5{
+    background-color: #15A9D4;
+}
+.theme5 form{
+    position: relative;
+}
+.theme5 form span{ 
+    position:absolute;
+    right: 5px;
+    top: 7px;
+    font-size: 20px;
+}
+
+/* theme6 */
+.theme6{
+    background-color: #122B40;
+    color: #fff;
+}
+.theme6 li{
+    list-style: none;
+}
+.theme6 a{
+    color: #fff;
+}
+
+/* footer */
+.footer{
+    background-image: linear-gradient(#022673,#034F86);
+}
+.footer .f-left{
+    color: #fff;
+}
+.footer .f-left-m{
+    text-align: center;
+    color: #fff;
+}
+.footer .f-left-m img{
+    width: 30px;
+}
+.footer .f-left img{
+    width: 30px;
+}
+.footer .f-mid {
+    text-align: center;
+}
+.footer .f-mid img{
+    width: 100px;
+}
+.footer .f-right{
+    position: relative;
+    height: 35px;
+
+}
+.footer .f-right .dropdown{
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%);
+}
+.footer .f-left,.footer .f-mid,.footer .f-right{
+    margin: 10px 0;
+}
+
+/* footer-nav */
+.footer-nav li {
+    color: #fff;
+}
+.footer-nav li a{
+    color: #fff;
+    padding-right: 10px;
+}
+.footer-nav+p{
+    color: #fff;
+} 

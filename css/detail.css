@@ -1,0 +1,225 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+html{
+    /* height: 2000px; */
+}
+html,body{
+    overflow-x:hidden;
+}
+a{
+    text-decoration: none !important;
+}
+
+img{
+    width: 100%;
+}
+
+
+/* 返回顶部按钮 */
+.back-top{
+    width: 50px;
+    height: 50px;
+    position: fixed;
+    right: 10px;
+    bottom: 20px;
+    background-color: #ccc;
+    text-align: center;
+    border-radius: 12px;
+    opacity: 0.6;
+    display: none;
+}
+.back-top span{
+    font-size: 30px;
+    color: #fff;
+    line-height: 50px;
+}
+
+.top{
+    background-color:#F8F8F8 ;
+}
+.top-header{
+    height: 50px;
+}
+.top nav{
+    margin-bottom: 0;
+    border: none;
+}
+.logo{
+    width: 140px;
+    background-image: linear-gradient(90deg,#1D388E,#3175B8);
+    padding: 0;
+    height: auto;
+}
+.logo p{
+    height: 50px;
+    line-height: 50px;
+}
+.logo p a{
+    color: #fff;
+}
+.logo p:nth-child(1){
+    background-color: #fff;
+    height: 75px;
+    border-bottom-right-radius: 40px;
+    padding: 10px 0;
+    box-sizing: border-box;
+}
+.logo p:nth-child(2){
+    height: 0;
+    overflow: hidden;
+    transition: height 0.5s;
+}
+.logo:hover p:nth-child(2){
+    height: 50px;
+}
+.logo-m img{
+    width: 100px;
+}
+
+/* detail */
+/* banner */
+.banner{
+    margin-top: 50px;
+    background: url(../img/ultrasound-l.jpg) no-repeat;
+    background-size: cover;
+    height: 470px;
+    position: relative;
+}
+.banner>div{
+    margin-top: 6%;
+}
+
+/* 联系我们 */
+.banner .sidebar{
+    width: 50px;
+    position: absolute;
+    right: -50px;
+    background-color: #fff;
+}
+.banner .sidebar li{
+    list-style: none;
+}
+
+.banner .sidebar li:nth-child(2):hover .erweima{
+    display: block;
+}
+.banner .sidebar p{
+    width: 20px;
+    background-color: #15A9D4;
+    color: #fff;
+    padding-left: 2px;
+    position: absolute;
+    right: 50px;
+    top: 75px;
+    cursor: pointer;
+}
+.banner .sidebar .erweima{
+    width: 140px;
+    position: absolute;
+    right: 50px;
+    top: 20px;
+    z-index: 99;
+    display: none;
+}
+
+/* 新闻内容 */
+.d-title h2{
+    font-size: 16px;
+}
+.d-mid h3{
+    font-size: 18px;
+    text-align: center;
+}
+.info{
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 20px;
+}
+.info p span{
+    margin-right: 20px;
+}
+.info>span{
+    width: 45px;
+    height: 24px;
+    background: url(http://static.bshare.cn/frame/images/counter_box_24.gif);
+    text-align: center;
+    line-height: 24px;
+}
+.d-content img{
+    max-width: 320px;
+}
+.d-bottom li{
+    list-style: none;
+
+}
+.d-bottom > a{
+    color: #fff;
+    background-color: #15A9D4;
+    display: block;
+    width: 110px;
+    height: 32px;
+    line-height: 32px;
+    text-align: center;
+}
+
+/* theme6 */
+.theme6{
+    background-color: #122B40;
+    color: #fff;
+}
+.theme6 li{
+    list-style: none;
+}
+.theme6 a{
+    color: #fff;
+}
+
+/* footer */
+.footer{
+    background-image: linear-gradient(#022673,#034F86);
+}
+.footer .f-left{
+    color: #fff;
+}
+.footer .f-left-m{
+    text-align: center;
+    color: #fff;
+}
+.footer .f-left-m img{
+    width: 30px;
+}
+.footer .f-left img{
+    width: 30px;
+}
+.footer .f-mid {
+    text-align: center;
+}
+.footer .f-mid img{
+    width: 100px;
+}
+.footer .f-right{
+    position: relative;
+    height: 35px;
+
+}
+.footer .f-right .dropdown{
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%);
+}
+.footer .f-left,.footer .f-mid,.footer .f-right{
+    margin: 10px 0;
+}
+
+/* footer-nav */
+.footer-nav li {
+    color: #fff;
+}
+.footer-nav li a{
+    color: #fff;
+    padding-right: 10px;
+}
+.footer-nav+p{
+    color: #fff;
+} 
